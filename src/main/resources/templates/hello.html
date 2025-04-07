@@ -3,8 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello page</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
 </head>
 <body>
-    <h1>Hello, <span th:text="${name}"></span> !</h1>
+<!--    <h1>Hello, <span th:style="'color:' + ${color}" th:text="${name}"></span> !</h1>-->
+    <form action="/students/add" method="post">
+        <input type="text" name="name" placeholder="Enter name">
+        <input type="number" name="age" placeholder="Enter age">
+        <button type="submit">Add</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.name}"></td>
+                <td th:text="${student.age}"></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

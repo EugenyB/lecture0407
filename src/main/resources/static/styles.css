@@ -1,0 +1,12 @@
+table {
+    background-color: navy;
+    margin: 10px;
+}
+
+th {
+    background-color: aliceblue;
+}
+
+td {
+    background-color: antiquewhite;
+}

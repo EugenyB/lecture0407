@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ua.mk.berkut.lecture0407.data.Student;
 import ua.mk.berkut.lecture0407.service.CalcService;
+import ua.mk.berkut.lecture0407.service.StudentService;
 
 @Controller
 @RequestMapping("/students")
@@ -15,19 +17,27 @@ import ua.mk.berkut.lecture0407.service.CalcService;
 public class MainController {
 
     private CalcService calcService;
+    private StudentService studentService;
 
     @GetMapping("/hello")
-    public String hello(@RequestParam String name, Model model) {
-        model.addAttribute("name", name);
+    public String hello(Model model) {
+//        model.addAttribute("color", color);
+//        model.addAttribute("name", name);
+        model.addAttribute("students", studentService.findAll());
         return "hello";
     }
 
     @PostMapping("/calc")
     public String calc(@RequestParam Integer num1, @RequestParam Integer num2, Model model) {
-        model.addAttribute("num1", num1);
-        model.addAttribute("num2", num2);
-        Integer sum = calcService.calc(num1, num2);
-        model.addAttribute("sum", sum);
+
+        model.addAttribute("result", calcService.calc(num1, num2));
         return "calc";
+    }
+
+    @PostMapping("/add")
+    public String add(@RequestParam String name, @RequestParam Integer age) {
+        //
+        studentService.add(new Student(name, age));
+        return "redirect:/students/hello";
     }
 }
